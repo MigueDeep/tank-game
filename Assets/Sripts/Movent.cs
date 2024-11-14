@@ -7,7 +7,8 @@ public class Movent : MonoBehaviour
 {
     public int speed;
     public int turnSpeed;
-    public GameObject light;
+    public Light lightTank;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -16,10 +17,9 @@ public class Movent : MonoBehaviour
 
     void Start()
     {
-        
+        lightTank = GetComponent<Light>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         //Vector3.forward = new Vector3(0, 0, 1) -> Eje z
@@ -31,10 +31,11 @@ public class Movent : MonoBehaviour
         float vertical = Input.GetAxis("Vertical");
         transform.Translate(Vector3.forward * Time.deltaTime * speed * vertical);
         transform.Rotate(Vector3.up * Time.deltaTime * turnSpeed * horizontal);
-        if (Input.GetKey(KeyCode.Q))
+
+        if (Input.GetKey(KeyCode.F))
         {
-            //activeinHierarchy -> devuelve true si el objeto esta activo o no
-            light.SetActive(!light.activeInHierarchy);
+            lightTank.enabled = false;
+
         } 
         
         //Obtener un compornente
