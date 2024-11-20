@@ -13,6 +13,7 @@ public class PlayerHealth : MonoBehaviour
     public GameObject gameOverPanel;
 
     public Slider healthBar; // Referencia al slider de la barra de vida
+    public GameObject barraVida;
 
     void Start()
     {
@@ -56,6 +57,7 @@ public class PlayerHealth : MonoBehaviour
                 Destroy(gameObject);
                 Destroy(explosion, 1);
                 gameOverPanel.SetActive(true);
+                barraVida.SetActive(false);
             }
         }
     }

@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     public float turnSpeed = 100f; 
     private float h;            
     private float v;              
-    private Rigidbody rb;         
+    private Rigidbody rb;
 
     void Start()
     {
@@ -25,11 +25,6 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         InputPlayer();
-    }
-
-    void FixedUpdate()
-    {
-        // Movimiento basado en físicas
         Movement();
     }
 
@@ -41,12 +36,22 @@ public class PlayerMovement : MonoBehaviour
 
     void Movement()
     {
+        //// Movimiento hacia adelante o atrás
+        //Vector3 movement = transform.forward * v * speed * Time.fixedDeltaTime;
+
+        //// Rotación
+        //Quaternion rotation = Quaternion.Euler(0f, h * turnSpeed * Time.fixedDeltaTime, 0f);
+
+        //rb.Move(rb.position + movement, rb.rotation * rotation);
+
+
         // Movimiento hacia adelante o atrás
         Vector3 movement = transform.forward * v * speed * Time.fixedDeltaTime;
-        rb.MovePosition(rb.position + movement);
 
         // Rotación
         Quaternion rotation = Quaternion.Euler(0f, h * turnSpeed * Time.fixedDeltaTime, 0f);
-        rb.MoveRotation(rb.rotation * rotation);
+
+        rb.MovePosition(rb.position + movement);
+        rb.MoveRotation(rb.rotation *  rotation);
     }
 }

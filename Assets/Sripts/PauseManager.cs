@@ -5,6 +5,8 @@ using UnityEngine;
 public class PauseManager : MonoBehaviour
 {
     public GameObject cuadroPausa;
+    public GameObject barraVida;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,11 +24,13 @@ public class PauseManager : MonoBehaviour
     {
         cuadroPausa.SetActive(true);
         Time.timeScale = 0;
+        barraVida.SetActive(false);
     }
 
     public void ResumeGame()
     {
         cuadroPausa.SetActive(false);
         Time.timeScale = 1;
+        barraVida.SetActive(true);
     }
 }
