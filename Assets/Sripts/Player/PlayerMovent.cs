@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float speed = 8f;    
-    public float turnSpeed = 100f; 
+    private float speed = 7f;    
+    private float turnSpeed = 50f; 
     private float h;            
     private float v;              
     private Rigidbody rb;
@@ -36,22 +36,15 @@ public class PlayerMovement : MonoBehaviour
 
     void Movement()
     {
-        //// Movimiento hacia adelante o atrás
-        //Vector3 movement = transform.forward * v * speed * Time.fixedDeltaTime;
+        transform.Translate(Vector3.forward * v * speed * Time.deltaTime);
+        transform.Rotate(Vector3.up * h * turnSpeed * Time.deltaTime);
 
-        //// Rotación
-        //Quaternion rotation = Quaternion.Euler(0f, h * turnSpeed * Time.fixedDeltaTime, 0f);
+        // // Movimiento hacia adelante o atrás
+        // Vector3 movement = transform.forward * v * speed * Time.fixedDeltaTime;
 
-        //rb.Move(rb.position + movement, rb.rotation * rotation);
+        // // Rotación
+        // Quaternion rotation = Quaternion.Euler(0f, h * turnSpeed * Time.fixedDeltaTime, 0f);
 
-
-        // Movimiento hacia adelante o atrás
-        Vector3 movement = transform.forward * v * speed * Time.fixedDeltaTime;
-
-        // Rotación
-        Quaternion rotation = Quaternion.Euler(0f, h * turnSpeed * Time.fixedDeltaTime, 0f);
-
-        rb.MovePosition(rb.position + movement);
-        rb.MoveRotation(rb.rotation *  rotation);
+        // rb.Move(rb.position + movement, rb.rotation * rotation);
     }
 }

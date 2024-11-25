@@ -28,7 +28,7 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
-    public void OnCollisionEnter(Collision collision)
+   public void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Shell")
         {
@@ -50,9 +50,13 @@ public class EnemyHealth : MonoBehaviour
                     particleSystem.Play();
                 }
 
+                // Notificar al GameManager que el enemigo fue destruido
+                GameManager.Instance.EnemyDestroyed();
+
                 Destroy(gameObject);
                 Destroy(explosion, 1);
             }
         }
     }
+
 }

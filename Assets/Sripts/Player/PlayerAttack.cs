@@ -25,7 +25,7 @@ public class PlayerAttack : MonoBehaviour
     void Attack()
     {
         // Si se presiona el botón de disparo, hay munición disponible y se cumple el cooldown
-        if (Input.GetButtonDown("Fire1") && currentAmmo > 0 && Time.time >= lastAttackTime + attackCooldown)
+        if (Input.GetButtonDown("Fire1") ||  Input.GetKeyDown(KeyCode.P) && currentAmmo > 0 && Time.time >= lastAttackTime + attackCooldown)
         {
             CreateBullet();
             currentAmmo--; // Reduce la munición
