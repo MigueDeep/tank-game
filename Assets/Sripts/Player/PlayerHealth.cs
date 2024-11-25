@@ -5,14 +5,14 @@ using UnityEngine.UI; // Importar para manejar la UI
 
 public class PlayerHealth : MonoBehaviour
 {
-    private int collisionCount = 0; 
+    private int collisionCount = 0;
 
-    public int maxCollisions = 10;  
-    public GameObject explosionPrefab; 
-    private Rigidbody rb;   
+    public int maxCollisions = 10;
+    public GameObject explosionPrefab;
+    private Rigidbody rb;
     public GameObject gameOverPanel;
 
-    public Slider healthBar; // Referencia al slider de la barra de vida
+    public Slider healthBar;
     public GameObject barraVida;
 
     void Start()
@@ -21,20 +21,20 @@ public class PlayerHealth : MonoBehaviour
 
         if (rb != null)
         {
-            rb.isKinematic = true;
+            rb.isKinematic = false;
         }
 
-        // Configura la barra de vida al inicio
         if (healthBar != null)
         {
-            healthBar.maxValue = maxCollisions; // Valor máximo de la barra
-            healthBar.value = maxCollisions;   // Valor inicial (vida completa)
+            healthBar.maxValue = maxCollisions;
+            healthBar.value = maxCollisions;
         }
     }
 
-    public void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.tag == "Shell")
+        // Detectar si la bala atraviesa al jugador
+        if (other.CompareTag("Shell"))
         {
             collisionCount++;
 
@@ -44,8 +44,11 @@ public class PlayerHealth : MonoBehaviour
                 healthBar.value = maxCollisions - collisionCount;
             }
 
-            // Si se alcanzan las colisiones máximas, termina el juego
-            if (collisionCount >= maxCollisions) 
+            // Destruir la bala al atravesar al jugador
+            Destroy(other.gameObject);
+
+            // Verificar si se alcanza el límite de colisiones
+            if (collisionCount >= maxCollisions)
             {
                 GameObject explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
                 var particleSystem = explosion.GetComponent<ParticleSystem>();
@@ -59,6 +62,27 @@ public class PlayerHealth : MonoBehaviour
                 gameOverPanel.SetActive(true);
                 barraVida.SetActive(false);
             }
+        }
+
+        if (other.gameObject.CompareTag("Bomb"))
+        {
+            GameObject explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            var particleSystem = explosion.GetComponent<ParticleSystem>();
+            if (particleSystem != null)
+            {
+                particleSystem.Play();
+            }
+            Destroy(other.gameObject);
+            Destroy(explosion, 1);
+            collisionCount += 2;
+            healthBar.value = maxCollisions - collisionCount;
+        }
+
+        if (other.gameObject.CompareTag("Life"))
+        {
+            collisionCount -= 2;
+            healthBar.value = maxCollisions - collisionCount;
+            Destroy(other.gameObject);
         }
     }
 }

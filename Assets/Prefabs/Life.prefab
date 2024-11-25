@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 580514210348930292}
   - component: {fileID: 4830204756394369089}
   - component: {fileID: 1299421943508468318}
+  - component: {fileID: 5693364228562190877}
   m_Layer: 0
   m_Name: Life
-  m_TagString: Untagged
+  m_TagString: Life
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 3001669788165261773}
   serializedVersion: 2
   m_LocalRotation: {x: 0.00000031292436, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.8405, y: 0.58, z: -1}
+  m_LocalPosition: {x: 7.8405, y: 0.465, z: -1}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -104,4 +105,31 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.3983823, y: 0.39820772, z: 0.08}
-  m_Center: {x: -0.0006971806, y: -0.00012963265, z: 0}
+  m_Center: {x: 0.001529954, y: 0.01151676, z: 0}
+--- !u!54 &5693364228562190877
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3001669788165261773}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

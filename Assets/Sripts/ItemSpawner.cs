@@ -6,25 +6,18 @@ public class ItemSpawner : MonoBehaviour
     // Referencias a los prefabs
     public GameObject bombaPrefab;
     public GameObject vidaPrefab;
-    public GameObject monedasPrefab;
     public GameObject municionPrefab;
-    public GameObject escudoPrefab;
 
-    // Área donde se pueden generar los objetos
-    public float spawnRangeX = 10f;
-    public float spawnRangeY = 10f;
+    private float spawnRangeX = 20f;
+    private float spawnRangeY = 20f;
 
-    // Intervalo de tiempo entre cada generación de objetos
-    public float spawnInterval = 2f;
+    private float spawnInterval = 4f;
 
-    // Start is called before the first frame update
     void Start()
     {
-        // Comienza a generar objetos aleatorios
         StartCoroutine(SpawnItems());
     }
 
-    // Coroutine para generar objetos en intervalos
     IEnumerator SpawnItems()
     {
         while (true)
@@ -32,7 +25,7 @@ public class ItemSpawner : MonoBehaviour
             // Selecciona un objeto aleatorio
             GameObject itemToSpawn = GetRandomItem();
 
-            // Genera el objeto en una posición aleatoria dentro del rango
+            // Genera el objeto en una posiciï¿½n aleatoria dentro del rango
             Vector3 spawnPosition = new Vector3(Random.Range(-spawnRangeX, spawnRangeX), 0f, Random.Range(-spawnRangeY, spawnRangeY));
             Instantiate(itemToSpawn, spawnPosition, Quaternion.identity);
 
@@ -41,24 +34,24 @@ public class ItemSpawner : MonoBehaviour
         }
     }
 
-    // Método para seleccionar un prefab aleatorio
+    // Mï¿½todo para seleccionar un prefab aleatorio
     GameObject GetRandomItem()
+{
+    float randomValue = Random.Range(0f, 1f); // Valor entre 0 y 1
+
+    if (randomValue < 0.4f) // 40% probabilidad
     {
-        int randomIndex = Random.Range(0, 5); // Hay 5 tipos de objetos
-        switch (randomIndex)
-        {
-            case 0:
-                return bombaPrefab;
-            case 1:
-                return vidaPrefab;
-            case 2:
-                return monedasPrefab;
-            case 3:
-                return municionPrefab;
-            case 4:
-                return escudoPrefab;
-            default:
-                return null;
-        }
+        return municionPrefab;
     }
+    else if (randomValue < 0.7f) // 30% probabilidad
+    {
+        return bombaPrefab;
+    }
+    else // 30% probabilidad
+    {
+        return vidaPrefab;
+    }
+}
+
+
 }
