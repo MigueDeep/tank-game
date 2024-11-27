@@ -8,6 +8,8 @@ public class PlayerAttack : MonoBehaviour
     public GameObject bulletPrefab; // Prefab de la bala
     public Transform positionShell; // Punto de salida de la bala
     public TextMeshProUGUI ammunitionText; // Referencia al texto de la UI para la munición
+    public AudioSource shootSound; // Referencia al componente AudioSource
+
     private int currentAmmo = 10; // Munición inicial
     private float attackCooldown = 1f; // Tiempo de espera entre ataques (en segundos)
     private float lastAttackTime = -Mathf.Infinity; // Momento del último ataque
@@ -25,7 +27,7 @@ public class PlayerAttack : MonoBehaviour
     void Attack()
     {
         // Si se presiona el botón de disparo, hay munición disponible y se cumple el cooldown
-        if (Input.GetButtonDown("Fire1") ||  Input.GetKeyDown(KeyCode.P) && currentAmmo > 0 && Time.time >= lastAttackTime + attackCooldown)
+        if ((Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.P)) && currentAmmo > 0 && Time.time >= lastAttackTime + attackCooldown)
         {
             CreateBullet();
             currentAmmo--; // Reduce la munición
@@ -36,8 +38,15 @@ public class PlayerAttack : MonoBehaviour
 
     void CreateBullet()
     {
+        // Instancia la bala
         GameObject bullet = Instantiate(bulletPrefab, positionShell.position, positionShell.rotation);
         bullet.GetComponent<Rigidbody>().AddForce(positionShell.forward * 1500);
+
+        // Reproduce el sonido de disparo
+        if (shootSound != null)
+        {
+            shootSound.PlayOneShot(shootSound.clip, 0.8f);
+        }
     }
 
     private void OnTriggerEnter(Collider other)

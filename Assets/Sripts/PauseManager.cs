@@ -7,6 +7,7 @@ public class PauseManager : MonoBehaviour
 {
     public GameObject cuadroPausa;
     public GameObject barraVida;
+    public AudioSource backgroundMusic; // Componente AudioSource para la música de fondo
 
     private bool isPaused = false; // Bandera para verificar si el juego está en pausa
 
@@ -38,6 +39,12 @@ public class PauseManager : MonoBehaviour
         Time.timeScale = 0; // Detener el tiempo del juego
         barraVida.SetActive(false); // Ocultar la barra de vida
         isPaused = true; // Cambiar el estado a "en pausa"
+
+        // Pausar la música de fondo
+        if (backgroundMusic != null)
+        {
+            backgroundMusic.Pause();
+        }
     }
 
     public void ResumeGame()
@@ -46,6 +53,12 @@ public class PauseManager : MonoBehaviour
         Time.timeScale = 1; // Reanudar el tiempo del juego
         barraVida.SetActive(true); // Mostrar la barra de vida
         isPaused = false; // Cambiar el estado a "en juego"
+
+        // Reanudar la música de fondo
+        if (backgroundMusic != null)
+        {
+            backgroundMusic.UnPause();
+        }
     }
 
     public void goToMenu()

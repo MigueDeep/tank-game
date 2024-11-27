@@ -15,6 +15,8 @@ public class PlayerHealth : MonoBehaviour
     public Slider healthBar;
     public GameObject barraVida;
 
+    public AudioSource bombSound; // Componente AudioSource para el sonido de la bomba
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -28,6 +30,17 @@ public class PlayerHealth : MonoBehaviour
         {
             healthBar.maxValue = maxCollisions;
             healthBar.value = maxCollisions;
+        }
+
+        // Verificar si el AudioSource está asignado
+        if (bombSound == null)
+        {
+            Debug.LogWarning("El componente AudioSource para bombSound no está asignado.");
+        }
+        else
+        {
+            // Ensure the AudioSource is enabled at the start
+            bombSound.enabled = true;
         }
     }
 
@@ -66,12 +79,23 @@ public class PlayerHealth : MonoBehaviour
 
         if (other.gameObject.CompareTag("Bomb"))
         {
+            // Reproduce el sonido de la bomba si está asignado y el AudioSource está habilitado
+            if (bombSound != null && bombSound.enabled)
+            {
+                bombSound.Play();
+            }
+            else
+            {
+                Debug.LogWarning("No se asignó un AudioSource para bombSound o el AudioSource está deshabilitado.");
+            }
+
             GameObject explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
             var particleSystem = explosion.GetComponent<ParticleSystem>();
             if (particleSystem != null)
             {
                 particleSystem.Play();
             }
+
             Destroy(other.gameObject);
             Destroy(explosion, 1);
             collisionCount += 2;

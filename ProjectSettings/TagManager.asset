@@ -10,6 +10,7 @@ TagManager:
   - Ammunition
   - Bomb
   - Life
+  - Enemy
   layers:
   - Default
   - TransparentFX

@@ -7,6 +7,8 @@ public class EnemyAttack : MonoBehaviour
     public GameObject bulletPrefab; // Prefab de la bala
     public Transform positionShell; // Punto de salida de la bala
     public Transform player; // Referencia al Transform del jugador
+    public AudioSource shootSound; // Referencia al componente AudioSource del enemigo
+
     private float attackCooldown = 3f; // Tiempo de espera entre ataques (en segundos)
     private float lastAttackTime = -Mathf.Infinity;
     public float maxShootingAngle = 45f; // Ángulo máximo permitido para disparar
@@ -32,10 +34,18 @@ public class EnemyAttack : MonoBehaviour
         {
             // Calcula la dirección hacia el jugador
             Vector3 direction = (player.position - positionShell.position).normalized;
+
             // Crea la bala
             GameObject bullet = Instantiate(bulletPrefab, positionShell.position, Quaternion.LookRotation(direction));
+
             // Aplica una fuerza a la bala
             bullet.GetComponent<Rigidbody>().AddForce(direction * 1500);
+
+            // Reproduce el sonido de disparo con menor volumen
+            if (shootSound != null)
+            {
+                shootSound.PlayOneShot(shootSound.clip, 0.2f); // Volumen reducido al 50%
+            }
         }
     }
 
