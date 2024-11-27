@@ -30,7 +30,7 @@ public class MenuScript : MonoBehaviour
         }
 
         // Simular un pequeño retraso opcional (para la animación o indicador)
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(2.0f);
 
         // Cargar la nueva escena
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);

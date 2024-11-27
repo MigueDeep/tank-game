@@ -79,7 +79,7 @@ public class PlayerHealth : MonoBehaviour
 
         if (other.gameObject.CompareTag("Bomb"))
         {
-            // Reproduce el sonido de la bomba si está asignado y el AudioSource está habilitado
+            
             if (bombSound != null && bombSound.enabled)
             {
                 bombSound.Play();

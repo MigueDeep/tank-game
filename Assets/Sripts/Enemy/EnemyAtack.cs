@@ -12,6 +12,7 @@ public class EnemyAttack : MonoBehaviour
     private float attackCooldown = 3f; // Tiempo de espera entre ataques (en segundos)
     private float lastAttackTime = -Mathf.Infinity;
     public float maxShootingAngle = 45f; // Ángulo máximo permitido para disparar
+    private float shootingRange = 15f; // Rango dentro del cual el enemigo puede disparar
 
     void Update()
     {
@@ -20,8 +21,8 @@ public class EnemyAttack : MonoBehaviour
 
     void Attack()
     {
-        // Verifica si ha pasado el tiempo de recarga
-        if (Time.time >= lastAttackTime + attackCooldown && IsPlayerInFront())
+        // Verifica si ha pasado el tiempo de recarga y si el jugador está dentro del rango de disparo
+        if (Time.time >= lastAttackTime + attackCooldown && IsPlayerInFront() && IsPlayerInRange())
         {
             CreateBullet();
             lastAttackTime = Time.time; // Actualiza el momento del último disparo
@@ -44,7 +45,7 @@ public class EnemyAttack : MonoBehaviour
             // Reproduce el sonido de disparo con menor volumen
             if (shootSound != null)
             {
-                shootSound.PlayOneShot(shootSound.clip, 0.2f); // Volumen reducido al 50%
+                shootSound.PlayOneShot(shootSound.clip, 0.2f); // Volumen reducido al 20%
             }
         }
     }
@@ -61,5 +62,15 @@ public class EnemyAttack : MonoBehaviour
 
         // Retorna true si el ángulo está dentro del rango permitido
         return angle <= maxShootingAngle;
+    }
+
+    bool IsPlayerInRange()
+    {
+        if (player == null) return false;
+
+        // Verifica si la distancia entre el enemigo y el jugador está dentro del rango de disparo
+        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+
+        return distanceToPlayer <= shootingRange;
     }
 }

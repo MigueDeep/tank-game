@@ -8,10 +8,10 @@ public class ItemSpawner : MonoBehaviour
     public GameObject vidaPrefab;
     public GameObject municionPrefab;
 
-    private float spawnRangeX = 20f;
-    private float spawnRangeY = 20f;
+    private float spawnRangeX = 25f;
+    private float spawnRangeY = 25f;
     private float spawnHeight = 0.8f; 
-    private float spawnInterval = 4f;
+    private float spawnInterval = 3f;
 
     void Start()
     {
